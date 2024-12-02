@@ -17,7 +17,7 @@ public class Ticket extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long ticketId;
-    int performanceId;
+    Long performanceId;
     LocalDateTime time;
     int seatNumber;
     String token;

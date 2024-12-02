@@ -1,9 +1,11 @@
 package com.example.tickethub_consumer.dto;
 
+import java.time.LocalDateTime;
+
 public record CreateTicketMessage (
         long userId,
-        String performanceId,
-        String time,
-        String seatNumber
+        long performanceId,
+        LocalDateTime time,
+        int seatNumber
 ){
 }

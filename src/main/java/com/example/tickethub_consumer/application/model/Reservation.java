@@ -14,7 +14,7 @@ public class Reservation {
         this.ticketRepository = ticketRepository;
     }
 
-    public void createTicket(long userId, int performanceId, LocalDateTime time, int seatNumber) {
+    public void createTicket(long userId, long performanceId, LocalDateTime time, int seatNumber) {
         ticket = Ticket.builder()
                 .performanceId(performanceId)
                 .time(time)
