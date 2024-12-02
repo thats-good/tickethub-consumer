@@ -1,6 +1,6 @@
 package com.example.tickethub_consumer.presentation.listener;
 
-import com.example.tickethub_consumer.application.service.TicketService;
+import com.example.tickethub_consumer.application.service.TicketSystem;
 import com.example.tickethub_consumer.dto.CreateTicketMessage;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class CreateTicketEventListener {
 
-    private final TicketService ticketService;
+    private final TicketSystem ticketSystem;
 
     @KafkaListener(topics = "#{@kafkaConfig.getReservationMessageTopic()}", groupId = "#{@kafkaConfig.getReservationMessageGroup()}")
     public void listen(String message, Acknowledgment acknowledgment, ConsumerRecord<String, String> record) {
@@ -24,7 +24,7 @@ public class CreateTicketEventListener {
 
         // 메시지 처리 로직
         try {
-            boolean isProcessComplete = ticketService.createTicket(createTicketMessage);
+            boolean isProcessComplete = ticketSystem.processMessage(createTicketMessage);
             if (isProcessComplete) {
                 acknowledgment.acknowledge(); // 성공적으로 메시지를 처리한 후 수동으로 커밋
                 System.out.println("Message was committed");

@@ -6,6 +6,7 @@ public record CreateTicketMessage (
         long userId,
         long performanceId,
         LocalDateTime time,
-        int seatNumber
+        int seatNumber,
+        String payment
 ){
 }

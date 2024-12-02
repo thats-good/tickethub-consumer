@@ -13,15 +13,15 @@ public class TicketServiceImpl implements TicketService{
     private final TicketRepository ticketRepository;
 
     @Override
-    public boolean createTicket(CreateTicketMessage createTicketMessage) {
+    public Reservation createTicket(CreateTicketMessage createTicketMessage) {
         Reservation reservation = new Reservation(ticketRepository);
         try{
             reservation.createTicket(createTicketMessage.userId(), createTicketMessage.performanceId(), createTicketMessage.time(), createTicketMessage.seatNumber());
             reservation.saveTicket();
-            return true;
+            return reservation;
         }catch (Exception e){
             e.printStackTrace();
-            return false;
+            throw new IllegalArgumentException("Ticket 생성 실패");
         }
     }
 }
