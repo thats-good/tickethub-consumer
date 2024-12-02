@@ -27,12 +27,12 @@ public class KafkaConfig {
     private String bootstrapServers;
 
     // 컨슈머가 listen 할 토픽 이름
-    @Value("${kafka.reservationMessageTopic}")
-    private String reservationMessageTopic;
+    @Value("${kafka.createTicketMessageTopic}")
+    private String createTicketMessageTopic;
 
     //Kafka 컨슈머 그룹 ID
-    @Value("${kafka.reservationMessageGroup}")
-    private String reservationMessageGroup;
+    @Value("${kafka.createTicketMessageGroup}")
+    private String createTicketMessageGroup;
 
 
     //    Kafka 리스너 컨테이너 팩토리를 설정하는 빈입니다. 이 팩토리를 통해 리스너가 Kafka 메시지를 수신할 때의 설정을 정의합니다.
@@ -63,7 +63,7 @@ public class KafkaConfig {
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, reservationMessageGroup);
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, createTicketMessageGroup);
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
         props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "5");
