@@ -13,4 +13,16 @@ public class Reservation {
     public Reservation(TicketRepository ticketRepository) {
         this.ticketRepository = ticketRepository;
     }
+
+    public void createTicket(long userId, int performanceId, LocalDateTime time, int seatNumber) {
+        ticket = Ticket.builder()
+                .performanceId(performanceId)
+                .time(time)
+                .seatNumber(seatNumber)
+                .build();
+    }
+
+    public void saveTicket(){
+        ticketRepository.save(ticket);
+    }
 }
