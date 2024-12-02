@@ -17,15 +17,20 @@ public class TicketSystemImpl implements TicketSystem{
 
     @Override
     public boolean processMessage(CreateTicketMessage createTicketMessage) {
-        if(seatService.isValidSeatNumber(createTicketMessage.seatNumber()) == false){
+        boolean isValidSeat = seatService.isValidSeatNumber(createTicketMessage.performanceId(), createTicketMessage.seatNumber());
+        if(isValidSeat == false){
             seatService.setSeatTag(createTicketMessage.seatNumber(), Tag.ON_SALE);
             return false;
         }
+
         Reservation reservation = ticketService.createTicket(createTicketMessage);
-        if(paymentService.requestPayment(createTicketMessage.payment()) == false){
+
+        boolean isPaid = paymentService.requestPayment(createTicketMessage.payment());
+        if(isPaid == false){
             seatService.setSeatTag(createTicketMessage.seatNumber(), Tag.ON_SALE);
             return false;
         }
+
         reservation.saveTicket();
         seatService.setSeatTag(createTicketMessage.seatNumber(), Tag.AFTER_SALE);
         return true;

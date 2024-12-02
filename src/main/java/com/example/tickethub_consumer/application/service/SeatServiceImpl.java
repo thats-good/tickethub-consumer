@@ -12,7 +12,7 @@ public class SeatServiceImpl implements SeatService {
     private final SeatRepository seatRepository;
 
     @Override
-    public boolean isValidSeatNumber(int seatNumber) {
+    public boolean isValidSeatNumber(long performanceId, int seatNumber) {
         return false;
     }
 
