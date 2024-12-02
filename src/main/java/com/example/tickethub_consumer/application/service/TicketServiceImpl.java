@@ -17,7 +17,6 @@ public class TicketServiceImpl implements TicketService{
         Reservation reservation = new Reservation(ticketRepository);
         try{
             reservation.createTicket(createTicketMessage.userId(), createTicketMessage.performanceId(), createTicketMessage.time(), createTicketMessage.seatNumber());
-            reservation.saveTicket();
             return reservation;
         }catch (Exception e){
             e.printStackTrace();
