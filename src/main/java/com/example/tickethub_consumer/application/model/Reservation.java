@@ -1,5 +1,6 @@
 package com.example.tickethub_consumer.application.model;
 
+import com.example.tickethub_consumer.application.model.entity.Performance;
 import com.example.tickethub_consumer.application.model.entity.Ticket;
 import com.example.tickethub_consumer.dataAccess.dao.TicketRepository;
 
@@ -14,9 +15,9 @@ public class Reservation {
         this.ticketRepository = ticketRepository;
     }
 
-    public void createTicket(long userId, long performanceId, LocalDateTime time, int seatNumber) {
+    public void createTicket(long userId, Performance performance, LocalDateTime time, int seatNumber) {
         ticket = Ticket.builder()
-                .performanceId(performanceId)
+                .performance(performance)
                 .time(time)
                 .seatNumber(seatNumber)
                 .build();
