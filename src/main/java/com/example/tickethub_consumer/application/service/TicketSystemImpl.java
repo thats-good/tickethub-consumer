@@ -19,7 +19,6 @@ public class TicketSystemImpl implements TicketSystem{
     public boolean processMessage(CreateTicketMessage createTicketMessage) {
         boolean isValidSeat = seatService.isValidSeatNumber(createTicketMessage.performanceId(), createTicketMessage.seatNumber());
         if(isValidSeat == false){
-            seatService.setSeatTag(createTicketMessage.seatNumber(), Tag.ON_SALE);
             return false;
         }
 
@@ -27,12 +26,12 @@ public class TicketSystemImpl implements TicketSystem{
 
         boolean isPaid = paymentService.requestPayment(createTicketMessage.payment());
         if(isPaid == false){
-            seatService.setSeatTag(createTicketMessage.seatNumber(), Tag.ON_SALE);
+            seatService.setSeatTag(createTicketMessage.performanceId(), createTicketMessage.seatNumber(), Tag.BEFORE_SALE);
             return false;
         }
 
         reservation.saveTicket();
-        seatService.setSeatTag(createTicketMessage.seatNumber(), Tag.AFTER_SALE);
+        seatService.setSeatTag(createTicketMessage.performanceId(), createTicketMessage.seatNumber(), Tag.AFTER_SALE);
         return true;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.tickethub_consumer.application.service;
 
+import com.example.tickethub_consumer.application.model.entity.Seat;
 import com.example.tickethub_consumer.application.model.entity.enums.Tag;
 import com.example.tickethub_consumer.dataAccess.dao.SeatRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,11 +14,17 @@ public class SeatServiceImpl implements SeatService {
 
     @Override
     public boolean isValidSeatNumber(long performanceId, int seatNumber) {
-        return false;
+        Seat seat = seatRepository.findByPerformanceIdAndSeatNumber(performanceId, seatNumber);
+        if(seat == null || seat.getTag() != Tag.BEFORE_SALE) {
+            return false;
+        }
+        seat.changeTag(Tag.ON_SALE);
+        return true;
     }
 
     @Override
-    public void setSeatTag(int seatNumber, Tag tag) {
-
+    public void setSeatTag(long performanceId, int seatNumber, Tag tag) {
+        Seat seat = seatRepository.findByPerformanceIdAndSeatNumber(performanceId, seatNumber);
+        seat.changeTag(tag);
     }
 }

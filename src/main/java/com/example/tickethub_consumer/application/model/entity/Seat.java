@@ -33,7 +33,7 @@ public class Seat extends BaseEntity {
     }
 
     public void changeTag(Tag tag) {
-
+        this.tag = tag;
     }
 
 }
