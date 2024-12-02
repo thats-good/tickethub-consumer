@@ -24,7 +24,7 @@ public class CreateTicketEventListener {
 
         // 메시지 처리 로직
         try {
-            boolean isProcessComplete = ticketService.processMessage(createTicketMessage);
+            boolean isProcessComplete = ticketService.createTicket(createTicketMessage);
             if (isProcessComplete) {
                 acknowledgment.acknowledge(); // 성공적으로 메시지를 처리한 후 수동으로 커밋
                 System.out.println("Message was committed");

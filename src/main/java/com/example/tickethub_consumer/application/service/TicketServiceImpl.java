@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TicketServiceImpl implements TicketService{
     @Override
-    public boolean processMessage(CreateTicketMessage createTicketMessage) {
+    public boolean createTicket(CreateTicketMessage createTicketMessage) {
         return false;
     }
 }
