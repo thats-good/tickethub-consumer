@@ -19,6 +19,7 @@ public class TicketSystemImpl implements TicketSystem{
     public boolean processMessage(CreateTicketMessage createTicketMessage) {
         boolean isValidSeat = seatService.isValidSeatNumber(createTicketMessage.performanceId(), createTicketMessage.seatNumber());
         if(isValidSeat == false){
+            System.out.println("유효하지 않은 좌석");
             return false;
         }
 

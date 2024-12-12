@@ -1,5 +1,10 @@
 package com.example.tickethub_consumer.application.service;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+
+@Component
+@RequiredArgsConstructor
 public class CardPayment implements Payment{
 
     private static final String paymentTag = "CARD";

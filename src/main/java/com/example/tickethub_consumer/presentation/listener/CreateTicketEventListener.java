@@ -3,6 +3,7 @@ package com.example.tickethub_consumer.presentation.listener;
 import com.example.tickethub_consumer.application.service.TicketSystem;
 import com.example.tickethub_consumer.dto.CreateTicketMessage;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -15,7 +16,7 @@ public class CreateTicketEventListener {
 
     private final TicketSystem ticketSystem;
 
-    @KafkaListener(topics = "#{@kafkaConfig.getReservationMessageTopic()}", groupId = "#{@kafkaConfig.getReservationMessageGroup()}")
+    @KafkaListener(topics = "#{@kafkaConfig.getCreateTicketMessageTopic()}", groupId = "#{@kafkaConfig.getCreateTicketMessageGroup()}")
     public void listen(String message, Acknowledgment acknowledgment, ConsumerRecord<String, String> record) {
         long offset = record.offset();
 
@@ -40,7 +41,7 @@ public class CreateTicketEventListener {
     private CreateTicketMessage parseCreateTicketMessage(String message) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            return objectMapper.readValue(message, CreateTicketMessage.class);
+            return objectMapper.registerModule(new JavaTimeModule()).readValue(message, CreateTicketMessage.class);
         } catch (Exception e) {
             throw new IllegalArgumentException("Invalid message format: " + message, e);
         }

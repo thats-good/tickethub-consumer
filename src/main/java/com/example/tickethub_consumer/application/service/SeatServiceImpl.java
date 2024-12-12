@@ -15,6 +15,7 @@ public class SeatServiceImpl implements SeatService {
     @Override
     public boolean isValidSeatNumber(long performanceId, int seatNumber) {
         Seat seat = seatRepository.findByPerformanceIdAndSeatNumber(performanceId, seatNumber);
+        System.out.println(seat.getTag());
         if(seat == null || seat.getTag() != Tag.BEFORE_SALE) {
             return false;
         }
