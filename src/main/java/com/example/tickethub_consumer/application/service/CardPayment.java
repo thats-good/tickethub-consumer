@@ -1,5 +1,8 @@
 package com.example.tickethub_consumer.application.service;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class CardPayment implements Payment{
 
     private static final String paymentTag = "CARD";
