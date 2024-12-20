@@ -1,6 +1,6 @@
 package com.example.tickethub_consumer.application.service;
 
-import com.example.tickethub_consumer.application.model.Reservation;
+import com.example.tickethub_consumer.application.model.TicketFactory;
 import com.example.tickethub_consumer.application.model.entity.enums.Tag;
 import com.example.tickethub_consumer.dto.CreateTicketMessage;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class TicketSystemImpl implements TicketSystem{
             return false;
         }
 
-        Reservation reservation = ticketService.createTicket(createTicketMessage);
+        TicketFactory ticketFactory = ticketService.createTicket(createTicketMessage);
 
         boolean isPaid = paymentService.requestPayment(createTicketMessage.payment());
         if(isPaid == false){
@@ -31,7 +31,7 @@ public class TicketSystemImpl implements TicketSystem{
             return false;
         }
 
-        reservation.saveTicket();
+        ticketFactory.saveTicket();
         seatService.setSeatTag(createTicketMessage.performanceId(), createTicketMessage.seatNumber(), Tag.AFTER_SALE);
         return true;
     }

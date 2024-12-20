@@ -1,6 +1,7 @@
 package com.example.tickethub_consumer.application.service;
 
-import com.example.tickethub_consumer.application.model.Reservation;
+import com.example.tickethub_consumer.application.model.PerformanceTicketFactory;
+import com.example.tickethub_consumer.application.model.TicketFactory;
 import com.example.tickethub_consumer.application.model.entity.Performance;
 import com.example.tickethub_consumer.application.model.entity.User;
 import com.example.tickethub_consumer.dataAccess.dao.PerformanceRepository;
@@ -19,13 +20,13 @@ public class TicketServiceImpl implements TicketService{
     private final UserRepository userRepository;
 
     @Override
-    public Reservation createTicket(CreateTicketMessage createTicketMessage) {
+    public TicketFactory createTicket(CreateTicketMessage createTicketMessage) {
         Performance performance = performanceRepository.findByPerformanceId(createTicketMessage.performanceId());
         User user = userRepository.findByUserId(createTicketMessage.userId());
-        Reservation reservation = new Reservation(ticketRepository);
+        TicketFactory ticketFactory = new PerformanceTicketFactory(ticketRepository);
         try{
-            reservation.createTicket(user, performance, createTicketMessage.time(), createTicketMessage.seatNumber());
-            return reservation;
+            ticketFactory.createTicket(user, performance, createTicketMessage.time(), createTicketMessage.seatNumber());
+            return ticketFactory;
         }catch (Exception e){
             e.printStackTrace();
             throw new IllegalArgumentException("Ticket 생성 실패");

@@ -3,17 +3,16 @@ package com.example.tickethub_consumer.application.model.entity;
 import com.example.tickethub_consumer.application.model.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
-@Entity
 @Getter
-@Builder
+@MappedSuperclass
+@SuperBuilder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@EntityListeners(AuditingEntityListener.class)
-public class Ticket extends BaseEntity {
+public abstract class Ticket extends BaseEntity {
     @Id
     @Column(name = "ticket_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
